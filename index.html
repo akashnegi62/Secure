@@ -1,0 +1,2401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShieldForce Security — Complete Security Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #050505;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .gradient-text {
+        background: linear-gradient(to right, #818cf8, #c084fc, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .gradient-text-2 {
+        background: linear-gradient(to right, #ffffff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          );
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(2deg);
+        }
+      }
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+          filter: blur(100px);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.1);
+          filter: blur(120px);
+        }
+      }
+      @keyframes scan-line {
+        0% {
+          top: 0%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      @keyframes slow-zoom {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.08);
+        }
+      }
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slide-in-left {
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate-float {
+        animation: float 10s ease-in-out infinite;
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 8s ease-in-out infinite;
+      }
+      .hero-bg-anim {
+        animation: slow-zoom 20s ease-in-out infinite alternate;
+      }
+
+      .hero-fade-1 {
+        animation: fade-in-up 0.8s ease-out 0.2s both;
+      }
+      .hero-fade-2 {
+        animation: fade-in-up 0.8s ease-out 0.4s both;
+      }
+      .hero-fade-3 {
+        animation: fade-in-up 0.8s ease-out 0.6s both;
+      }
+      .hero-fade-4 {
+        animation: fade-in-up 0.8s ease-out 0.8s both;
+      }
+      .hero-fade-5 {
+        animation: fade-in-up 0.8s ease-out 1s both;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal-left.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal-right.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.9);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal-scale.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .service-card {
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+      .service-card:hover .service-icon {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      }
+      .service-card:hover .service-arrow {
+        transform: translateX(4px);
+        opacity: 1;
+      }
+
+      .scan-overlay::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #6366f1,
+          transparent
+        );
+        animation: scan-line 3s linear infinite;
+        opacity: 0.6;
+      }
+
+      #spotlight {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        background: radial-gradient(
+          circle 500px at var(--x, 50%) var(--y, 50%),
+          rgba(99, 102, 241, 0.05),
+          transparent 80%
+        );
+      }
+
+      .mobile-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          opacity 0.3s ease;
+        opacity: 0;
+      }
+      .mobile-menu.open {
+        max-height: 400px;
+        opacity: 1;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        z-index: 10000;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .stat-number {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .project-card .project-overlay {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+      .project-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .process-step {
+        position: relative;
+      }
+      .process-step::after {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: calc(50% + 28px);
+        width: calc(100% - 56px);
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          rgba(99, 102, 241, 0.4),
+          rgba(168, 85, 247, 0.1)
+        );
+      }
+      .process-step:last-child::after {
+        display: none;
+      }
+
+      .nav-scrolled {
+        background: rgba(5, 5, 5, 0.85) !important;
+        backdrop-filter: blur(20px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="bg-grid">
+    <div id="spotlight"></div>
+
+    <!-- Background Glows -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+      <div
+        class="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full bg-indigo-600/20 animate-pulse-glow"
+      ></div>
+      <div
+        class="absolute top-[40%] right-[-200px] w-[500px] h-[500px] rounded-full bg-purple-600/15 animate-pulse-glow"
+        style="animation-delay: 3s"
+      ></div>
+      <div
+        class="absolute bottom-[-100px] left-[30%] w-[400px] h-[400px] rounded-full bg-cyan-600/10 animate-pulse-glow"
+        style="animation-delay: 5s"
+      ></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-48px)] max-w-5xl"
+    >
+      <div
+        class="glass-panel rounded-full px-6 py-3 flex items-center justify-between"
+        style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.3)"
+      >
+        <a href="#hero" class="flex items-center gap-2.5">
+          <div
+            class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center"
+          >
+            <iconify-icon
+              icon="mdi:shield-lock"
+              class="text-white text-lg"
+            ></iconify-icon>
+          </div>
+          <span class="font-semibold text-sm tracking-tight">ShieldForce</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a
+            href="#services"
+            class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300"
+            >Services</a
+          >
+          <a
+            href="#about"
+            class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300"
+            >About</a
+          >
+          <a
+            href="#projects"
+            class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300"
+            >Projects</a
+          >
+          <a
+            href="#process"
+            class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300"
+            >Process</a
+          >
+          <a
+            href="#testimonials"
+            class="text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-300"
+            >Reviews</a
+          >
+        </div>
+        <div class="hidden md:flex items-center gap-3">
+          <a
+            href="#contact"
+            class="bg-white text-black text-xs font-medium px-5 py-2 rounded-full hover:scale-[1.02] transition-all duration-300"
+            style="box-shadow: 0 0 20px rgba(255, 255, 255, 0.1)"
+          >
+            Get a Quote
+          </a>
+        </div>
+        <button id="mobileToggle" class="md:hidden text-white p-1">
+          <iconify-icon icon="mdi:menu" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+      <div
+        id="mobileMenu"
+        class="mobile-menu glass-panel rounded-2xl mt-2 px-6"
+      >
+        <div class="py-4 flex flex-col gap-4">
+          <a
+            href="#services"
+            class="text-sm text-neutral-400 hover:text-white transition-colors"
+            onclick="closeMobileMenu()"
+            >Services</a
+          >
+          <a
+            href="#about"
+            class="text-sm text-neutral-400 hover:text-white transition-colors"
+            onclick="closeMobileMenu()"
+            >About</a
+          >
+          <a
+            href="#projects"
+            class="text-sm text-neutral-400 hover:text-white transition-colors"
+            onclick="closeMobileMenu()"
+            >Projects</a
+          >
+          <a
+            href="#process"
+            class="text-sm text-neutral-400 hover:text-white transition-colors"
+            onclick="closeMobileMenu()"
+            >Process</a
+          >
+          <a
+            href="#testimonials"
+            class="text-sm text-neutral-400 hover:text-white transition-colors"
+            onclick="closeMobileMenu()"
+            >Reviews</a
+          >
+          <a
+            href="#contact"
+            class="bg-white text-black text-sm font-medium px-5 py-2.5 rounded-full text-center mt-1"
+            onclick="closeMobileMenu()"
+            >Get a Quote</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section
+      id="hero"
+      class="relative min-h-screen flex items-center justify-center z-10 overflow-hidden"
+    >
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://picsum.photos/seed/dark-security-hq/1920/1080.jpg"
+          alt="Security Background"
+          class="w-full h-full object-cover hero-bg-anim"
+          style="filter: brightness(0.25) contrast(1.2) saturate(0.6)"
+        />
+        <!-- Dark Gradient Overlays -->
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-[#050505]/50 via-transparent to-transparent"
+        ></div>
+        <!-- Grid overlay -->
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 pb-20">
+        <div class="max-w-3xl">
+          <!-- Status Badge -->
+          <div
+            class="hero-fade-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-8"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+            ></span>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >24/7 Protection Active</span
+            >
+          </div>
+
+          <!-- Main Heading -->
+          <h1
+            class="hero-fade-2 text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tighter mb-6"
+          >
+            <span class="gradient-text-2">Complete</span><br />
+            <span class="gradient-text">Security</span><br />
+            <span class="gradient-text-2">Solutions</span>
+          </h1>
+
+          <!-- Subheading -->
+          <p
+            class="hero-fade-3 text-neutral-400 text-base md:text-lg font-light leading-relaxed max-w-lg mb-10"
+          >
+            From advanced CCTV surveillance to professional guard services — we
+            protect what matters most with cutting-edge technology and trained
+            personnel.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="hero-fade-4 flex flex-wrap gap-4 mb-14">
+            <a
+              href="#contact"
+              class="bg-white text-black text-sm font-medium px-8 py-3.5 rounded-full hover:scale-[1.01] transition-all duration-300 flex items-center gap-2"
+              style="box-shadow: 0 0 35px rgba(255, 255, 255, 0.1)"
+            >
+              Request Consultation
+              <iconify-icon
+                icon="mdi:arrow-right"
+                class="text-base"
+              ></iconify-icon>
+            </a>
+            <a
+              href="#services"
+              class="glass-panel text-white text-sm font-medium px-8 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+            >
+              <iconify-icon
+                icon="mdi:play-circle-outline"
+                class="text-lg text-indigo-400"
+              ></iconify-icon>
+              View Services
+            </a>
+          </div>
+
+          <!-- Trust Badges + Mini Stats -->
+          <div class="hero-fade-5 flex items-center gap-8 flex-wrap">
+            <!-- Avatar Group -->
+            <div class="flex items-center gap-4">
+              <div class="flex -space-x-2">
+                <img
+                  src="https://picsum.photos/seed/face1/64/64.jpg"
+                  class="w-8 h-8 rounded-full border-2 border-[#050505]"
+                  alt=""
+                />
+                <img
+                  src="https://picsum.photos/seed/face2/64/64.jpg"
+                  class="w-8 h-8 rounded-full border-2 border-[#050505]"
+                  alt=""
+                />
+                <img
+                  src="https://picsum.photos/seed/face3/64/64.jpg"
+                  class="w-8 h-8 rounded-full border-2 border-[#050505]"
+                  alt=""
+                />
+                <img
+                  src="https://picsum.photos/seed/face4/64/64.jpg"
+                  class="w-8 h-8 rounded-full border-2 border-[#050505]"
+                  alt=""
+                />
+              </div>
+              <div>
+                <div class="flex items-center gap-0.5 mb-0.5">
+                  <iconify-icon
+                    icon="mdi:star"
+                    class="text-amber-400 text-xs"
+                  ></iconify-icon>
+                  <iconify-icon
+                    icon="mdi:star"
+                    class="text-amber-400 text-xs"
+                  ></iconify-icon>
+                  <iconify-icon
+                    icon="mdi:star"
+                    class="text-amber-400 text-xs"
+                  ></iconify-icon>
+                  <iconify-icon
+                    icon="mdi:star"
+                    class="text-amber-400 text-xs"
+                  ></iconify-icon>
+                  <iconify-icon
+                    icon="mdi:star"
+                    class="text-amber-400 text-xs"
+                  ></iconify-icon>
+                  <span class="text-[10px] text-neutral-400 ml-1">4.9</span>
+                </div>
+                <p class="text-[10px] text-neutral-500">
+                  Trusted by
+                  <span class="text-neutral-300 font-medium">500+</span>
+                  businesses
+                </p>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="hidden md:block w-px h-10 bg-white/10"></div>
+
+            <!-- Mini Stats Row -->
+            <div class="hidden md:flex items-center gap-8">
+              <div>
+                <p class="text-xl font-semibold gradient-text">12K+</p>
+                <p
+                  class="text-[10px] text-neutral-500 uppercase tracking-wider"
+                >
+                  Cameras
+                </p>
+              </div>
+              <div>
+                <p class="text-xl font-semibold gradient-text">15+</p>
+                <p
+                  class="text-[10px] text-neutral-500 uppercase tracking-wider"
+                >
+                  Years
+                </p>
+              </div>
+              <div>
+                <p class="text-xl font-semibold gradient-text">350+</p>
+                <p
+                  class="text-[10px] text-neutral-500 uppercase tracking-wider"
+                >
+                  Guards
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Cards (Right Side) -->
+      <div
+        class="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2 z-10"
+      >
+        <!-- CCTV Status Card -->
+        <div
+          class="glass-panel rounded-2xl p-4 mb-4 w-64 animate-float"
+          style="box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)"
+        >
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span class="text-[10px] font-mono text-red-400 tracking-wider"
+              >LIVE FEED</span
+            >
+          </div>
+          <div
+            class="rounded-xl overflow-hidden mb-3 relative scan-overlay h-32"
+          >
+            <img
+              src="https://picsum.photos/seed/cctv-feed-live/400/200.jpg"
+              alt="Live Feed"
+              class="w-full h-full object-cover"
+              style="filter: brightness(0.5) contrast(1.3)"
+            />
+            <div
+              class="absolute bottom-2 left-2 text-[9px] font-mono text-neutral-400"
+            >
+              CAM-07 | ZONE B
+            </div>
+            <div
+              class="absolute top-2 right-2 text-[9px] font-mono text-neutral-400"
+              id="liveTime"
+            >
+              --:--:--
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div
+                class="w-6 h-6 rounded-lg bg-emerald-500/20 flex items-center justify-center"
+              >
+                <iconify-icon
+                  icon="mdi:shield-check"
+                  class="text-emerald-400 text-xs"
+                ></iconify-icon>
+              </div>
+              <span class="text-[11px] font-medium">All Systems Online</span>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400">OK</span>
+          </div>
+        </div>
+
+        <!-- Motion Detection Card -->
+        <div
+          class="glass-panel rounded-xl p-3 w-64 animate-float"
+          style="animation-delay: 2s; box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl bg-indigo-500/20 flex items-center justify-center"
+            >
+              <iconify-icon
+                icon="mdi:motion-sensor"
+                class="text-indigo-400"
+              ></iconify-icon>
+            </div>
+            <div class="flex-1">
+              <p class="text-[11px] font-medium">Motion Detected</p>
+              <p class="text-[10px] text-neutral-500">Zone B — 2s ago</p>
+            </div>
+            <div class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></div>
+          </div>
+        </div>
+
+        <!-- Guards On Duty Card -->
+        <div
+          class="glass-panel rounded-xl p-3 w-64 mt-4 animate-float"
+          style="animation-delay: 4s; box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center"
+            >
+              <iconify-icon
+                icon="mdi:account-group"
+                class="text-amber-400"
+              ></iconify-icon>
+            </div>
+            <div class="flex-1">
+              <p class="text-[11px] font-medium">Guards On Duty</p>
+              <p class="text-[10px] text-emerald-400">8 active now</p>
+            </div>
+            <iconify-icon
+              icon="mdi:chevron-right"
+              class="text-neutral-600 text-sm"
+            ></iconify-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll Indicator -->
+      <div
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-fade-5"
+      >
+        <span class="text-[10px] text-neutral-600 uppercase tracking-widest"
+          >Scroll</span
+        >
+        <div
+          class="w-5 h-8 rounded-full border border-white/10 flex justify-center pt-1.5"
+        >
+          <div class="w-1 h-2 rounded-full bg-white/30 animate-bounce"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="relative z-10 px-6 -mt-4 mb-20">
+      <div
+        class="max-w-5xl mx-auto glass-panel rounded-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-8 reveal-scale"
+      >
+        <div class="text-center">
+          <p
+            class="text-3xl md:text-4xl font-semibold stat-number gradient-text"
+            data-target="500"
+          >
+            0
+          </p>
+          <p class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">
+            Projects Completed
+          </p>
+        </div>
+        <div class="text-center">
+          <p
+            class="text-3xl md:text-4xl font-semibold stat-number gradient-text"
+            data-target="12000"
+          >
+            0
+          </p>
+          <p class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">
+            Cameras Installed
+          </p>
+        </div>
+        <div class="text-center">
+          <p
+            class="text-3xl md:text-4xl font-semibold stat-number gradient-text"
+            data-target="350"
+          >
+            0
+          </p>
+          <p class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">
+            Security Guards
+          </p>
+        </div>
+        <div class="text-center">
+          <p
+            class="text-3xl md:text-4xl font-semibold stat-number gradient-text"
+            data-target="15"
+          >
+            0
+          </p>
+          <p class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">
+            Years Experience
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative z-10 px-6 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+          >
+            <iconify-icon
+              icon="mdi:shield-star"
+              class="text-indigo-400 text-sm"
+            ></iconify-icon>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >Our Services</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+            <span class="gradient-text-2">End-to-End Security</span>
+          </h2>
+          <p class="text-neutral-400 font-light max-w-xl mx-auto">
+            Comprehensive security solutions tailored for commercial,
+            industrial, and residential properties.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- CCTV -->
+          <div
+            class="service-card glass-panel rounded-2xl p-8 group cursor-pointer reveal"
+            style="transition-delay: 0ms"
+          >
+            <div
+              class="service-icon w-14 h-14 rounded-2xl bg-indigo-500/15 flex items-center justify-center mb-6 transition-all duration-500"
+            >
+              <iconify-icon
+                icon="mdi:cctv"
+                class="text-indigo-400 text-2xl"
+              ></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium mb-3">CCTV Installation</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              HD & 4K surveillance systems with remote monitoring, night vision,
+              AI-powered analytics, and cloud storage solutions.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >IP & Analog Camera Systems
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Remote Mobile Access
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >AI Motion Detection
+              </li>
+            </ul>
+            <div
+              class="flex items-center gap-2 text-indigo-400 text-sm font-medium"
+            >
+              Learn More
+              <iconify-icon
+                icon="mdi:arrow-right"
+                class="service-arrow opacity-0 transition-all duration-300"
+              ></iconify-icon>
+            </div>
+          </div>
+
+          <!-- Fire Alarm -->
+          <div
+            class="service-card glass-panel rounded-2xl p-8 group cursor-pointer reveal"
+            style="transition-delay: 100ms"
+          >
+            <div
+              class="service-icon w-14 h-14 rounded-2xl bg-red-500/15 flex items-center justify-center mb-6 transition-all duration-500"
+            >
+              <iconify-icon
+                icon="mdi:fire-alert"
+                class="text-red-400 text-2xl"
+              ></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium mb-3">Fire Alarm System</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              Advanced fire detection and notification systems with smoke, heat,
+              and gas sensors for early warning and safety compliance.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Conventional & Addressable Panels
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Smoke & Heat Detectors
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Fire Brigade Integration
+              </li>
+            </ul>
+            <div
+              class="flex items-center gap-2 text-red-400 text-sm font-medium"
+            >
+              Learn More
+              <iconify-icon
+                icon="mdi:arrow-right"
+                class="service-arrow opacity-0 transition-all duration-300"
+              ></iconify-icon>
+            </div>
+          </div>
+
+          <!-- PA System -->
+          <div
+            class="service-card glass-panel rounded-2xl p-8 group cursor-pointer reveal"
+            style="transition-delay: 200ms"
+          >
+            <div
+              class="service-icon w-14 h-14 rounded-2xl bg-cyan-500/15 flex items-center justify-center mb-6 transition-all duration-500"
+            >
+              <iconify-icon
+                icon="mdi:bullhorn"
+                class="text-cyan-400 text-2xl"
+              ></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium mb-3">PA System</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              Public address and voice alarm systems for clear communication,
+              emergency announcements, and background music distribution.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Zone-Based Paging
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Emergency Voice Evacuation
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Background Music Integration
+              </li>
+            </ul>
+            <div
+              class="flex items-center gap-2 text-cyan-400 text-sm font-medium"
+            >
+              Learn More
+              <iconify-icon
+                icon="mdi:arrow-right"
+                class="service-arrow opacity-0 transition-all duration-300"
+              ></iconify-icon>
+            </div>
+          </div>
+
+          <!-- Access Control -->
+          <div
+            class="service-card glass-panel rounded-2xl p-8 group cursor-pointer reveal"
+            style="transition-delay: 300ms"
+          >
+            <div
+              class="service-icon w-14 h-14 rounded-2xl bg-purple-500/15 flex items-center justify-center mb-6 transition-all duration-500"
+            >
+              <iconify-icon
+                icon="mdi:card-account-details-lock"
+                class="text-purple-400 text-2xl"
+              ></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium mb-3">Access Control System</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              Smart entry management using biometric, card-based, and mobile
+              credentials with real-time logging and reporting.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Fingerprint & Face Recognition
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >RFID & Smart Card Systems
+              </li>
+              <li class="flex items-center gap-2 text-xs text-neutral-500">
+                <iconify-icon
+                  icon="mdi:check-circle"
+                  class="text-emerald-400 text-sm"
+                ></iconify-icon
+                >Time & Attendance Integration
+              </li>
+            </ul>
+            <div
+              class="flex items-center gap-2 text-purple-400 text-sm font-medium"
+            >
+              Learn More
+              <iconify-icon
+                icon="mdi:arrow-right"
+                class="service-arrow opacity-0 transition-all duration-300"
+              ></iconify-icon>
+            </div>
+          </div>
+
+          <!-- Security Guards (Wide) -->
+          <div
+            class="service-card glass-panel rounded-2xl p-8 group cursor-pointer md:col-span-2 lg:col-span-2 reveal"
+            style="transition-delay: 400ms"
+          >
+            <div class="lg:flex lg:items-start lg:gap-10">
+              <div class="flex-1">
+                <div
+                  class="service-icon w-14 h-14 rounded-2xl bg-amber-500/15 flex items-center justify-center mb-6 transition-all duration-500"
+                >
+                  <iconify-icon
+                    icon="mdi:account-shield"
+                    class="text-amber-400 text-2xl"
+                  ></iconify-icon>
+                </div>
+                <h3 class="text-lg font-medium mb-3">
+                  Security Guard Services
+                </h3>
+                <p
+                  class="text-sm text-neutral-400 font-light leading-relaxed mb-6"
+                >
+                  Professionally trained and licensed security personnel for
+                  static guarding, mobile patrols, event security, and executive
+                  protection.
+                </p>
+                <div class="grid grid-cols-2 gap-2 mb-6">
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >Static Guarding
+                  </li>
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >Mobile Patrols
+                  </li>
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >Event Security
+                  </li>
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >Executive Protection
+                  </li>
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >24/7 Monitoring
+                  </li>
+                  <li class="flex items-center gap-2 text-xs text-neutral-500">
+                    <iconify-icon
+                      icon="mdi:check-circle"
+                      class="text-emerald-400 text-sm"
+                    ></iconify-icon
+                    >Trained & Licensed
+                  </li>
+                </div>
+                <div
+                  class="flex items-center gap-2 text-amber-400 text-sm font-medium"
+                >
+                  Learn More
+                  <iconify-icon
+                    icon="mdi:arrow-right"
+                    class="service-arrow opacity-0 transition-all duration-300"
+                  ></iconify-icon>
+                </div>
+              </div>
+              <div
+                class="hidden lg:block w-64 h-48 rounded-2xl overflow-hidden flex-shrink-0 mt-2"
+              >
+                <img
+                  src="https://picsum.photos/seed/security-guard/400/300.jpg"
+                  alt="Security Guard"
+                  class="w-full h-full object-cover"
+                  style="filter: brightness(0.6) contrast(1.1)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative z-10 px-6 py-20">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div class="relative reveal-left">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl overflow-hidden h-52">
+              <img
+                src="https://picsum.photos/seed/cCTV-install/400/350.jpg"
+                alt="CCTV Installation"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                style="filter: brightness(0.7)"
+              />
+            </div>
+            <div class="rounded-2xl overflow-hidden h-52 mt-8">
+              <img
+                src="https://picsum.photos/seed/fire-alarm-panel/400/350.jpg"
+                alt="Fire Alarm"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                style="filter: brightness(0.7)"
+              />
+            </div>
+            <div class="rounded-2xl overflow-hidden h-52 -mt-4">
+              <img
+                src="https://picsum.photos/seed/access-control-door/400/350.jpg"
+                alt="Access Control"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                style="filter: brightness(0.7)"
+              />
+            </div>
+            <div class="rounded-2xl overflow-hidden h-52 mt-4">
+              <img
+                src="https://picsum.photos/seed/guard-patrol/400/350.jpg"
+                alt="Guard Patrol"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                style="filter: brightness(0.7)"
+              />
+            </div>
+          </div>
+          <div
+            class="absolute -bottom-4 left-1/2 -translate-x-1/2 glass-panel rounded-xl px-6 py-3 flex items-center gap-3"
+            style="box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center"
+            >
+              <iconify-icon
+                icon="mdi:certificate"
+                class="text-indigo-400 text-lg"
+              ></iconify-icon>
+            </div>
+            <div>
+              <p class="text-xs font-medium">ISO 9001:2015</p>
+              <p class="text-[10px] text-neutral-500">Certified Company</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+          >
+            <iconify-icon
+              icon="mdi:information-outline"
+              class="text-indigo-400 text-sm"
+            ></iconify-icon>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >About Us</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
+            <span class="gradient-text-2">Protecting People &</span><br />
+            <span class="gradient-text">Premises Since 2009</span>
+          </h2>
+          <p class="text-neutral-400 font-light leading-relaxed mb-8">
+            ShieldForce Security is a leading integrated security solutions
+            provider. We combine state-of-the-art technology with highly trained
+            security professionals to deliver unmatched protection for
+            businesses, institutions, and residential communities.
+          </p>
+          <div class="space-y-4 mb-10">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center flex-shrink-0 mt-0.5"
+              >
+                <iconify-icon
+                  icon="mdi:tools"
+                  class="text-indigo-400 text-lg"
+                ></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium mb-1">
+                  Expert Installation Team
+                </h4>
+                <p class="text-xs text-neutral-500 font-light leading-relaxed">
+                  Certified technicians with years of experience in complex
+                  security system deployments.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center flex-shrink-0 mt-0.5"
+              >
+                <iconify-icon
+                  icon="mdi:headset"
+                  class="text-emerald-400 text-lg"
+                ></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium mb-1">
+                  24/7 Support & Maintenance
+                </h4>
+                <p class="text-xs text-neutral-500 font-light leading-relaxed">
+                  Round-the-clock technical support and preventive maintenance
+                  for all installed systems.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center flex-shrink-0 mt-0.5"
+              >
+                <iconify-icon
+                  icon="mdi:handshake"
+                  class="text-purple-400 text-lg"
+                ></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium mb-1">Trusted Partnerships</h4>
+                <p class="text-xs text-neutral-500 font-light leading-relaxed">
+                  Authorized dealer for Hikvision, Dahua, Bosch, Honeywell, and
+                  other top brands.
+                </p>
+              </div>
+            </div>
+          </div>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 bg-white text-black text-sm font-medium px-8 py-3.5 rounded-full hover:scale-[1.01] transition-all duration-300"
+            style="box-shadow: 0 0 35px rgba(255, 255, 255, 0.1)"
+          >
+            Get in Touch
+            <iconify-icon
+              icon="mdi:arrow-right"
+              class="text-base"
+            ></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative z-10 px-6 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+          >
+            <iconify-icon
+              icon="mdi:briefcase-check"
+              class="text-indigo-400 text-sm"
+            ></iconify-icon>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >Our Projects</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+            <span class="gradient-text-2">Featured Installations</span>
+          </h2>
+          <p class="text-neutral-400 font-light max-w-xl mx-auto">
+            A glimpse of our recent security projects across various industries.
+          </p>
+        </div>
+
+        <div class="flex justify-center gap-2 mb-12 reveal flex-wrap">
+          <button
+            class="filter-btn active px-5 py-2 rounded-full text-xs font-medium transition-all duration-300"
+            data-filter="all"
+          >
+            All Projects
+          </button>
+          <button
+            class="filter-btn px-5 py-2 rounded-full text-xs font-medium transition-all duration-300"
+            data-filter="cctv"
+          >
+            CCTV
+          </button>
+          <button
+            class="filter-btn px-5 py-2 rounded-full text-xs font-medium transition-all duration-300"
+            data-filter="fire"
+          >
+            Fire Alarm
+          </button>
+          <button
+            class="filter-btn px-5 py-2 rounded-full text-xs font-medium transition-all duration-300"
+            data-filter="access"
+          >
+            Access Control
+          </button>
+          <button
+            class="filter-btn px-5 py-2 rounded-full text-xs font-medium transition-all duration-300"
+            data-filter="guard"
+          >
+            Guard Services
+          </button>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectGrid">
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="cctv"
+            style="transition-delay: 0ms"
+          >
+            <img
+              src="https://picsum.photos/seed/mall-security/600/400.jpg"
+              alt="Mall Security"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-indigo-400 uppercase tracking-widest mb-1 block"
+                >CCTV Installation</span
+              >
+              <h3 class="text-lg font-medium">Shopping Mall Surveillance</h3>
+              <p class="text-xs text-neutral-400">
+                200+ IP cameras with centralized monitoring
+              </p>
+            </div>
+          </div>
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="fire"
+            style="transition-delay: 100ms"
+          >
+            <img
+              src="https://picsum.photos/seed/office-fire/600/400.jpg"
+              alt="Office Fire System"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-red-400 uppercase tracking-widest mb-1 block"
+                >Fire Alarm</span
+              >
+              <h3 class="text-lg font-medium">Corporate Office Complex</h3>
+              <p class="text-xs text-neutral-400">
+                Addressable fire alarm with 500+ detectors
+              </p>
+            </div>
+          </div>
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="access"
+            style="transition-delay: 200ms"
+          >
+            <img
+              src="https://picsum.photos/seed/biometric-access/600/400.jpg"
+              alt="Access Control"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-purple-400 uppercase tracking-widest mb-1 block"
+                >Access Control</span
+              >
+              <h3 class="text-lg font-medium">IT Park Biometric Access</h3>
+              <p class="text-xs text-neutral-400">
+                Face recognition for 3,000+ employees
+              </p>
+            </div>
+          </div>
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="guard"
+            style="transition-delay: 300ms"
+          >
+            <img
+              src="https://picsum.photos/seed/industrial-guard/600/400.jpg"
+              alt="Guard Services"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-amber-400 uppercase tracking-widest mb-1 block"
+                >Guard Services</span
+              >
+              <h3 class="text-lg font-medium">Industrial Facility Guarding</h3>
+              <p class="text-xs text-neutral-400">
+                Round-the-clock 40-guard deployment
+              </p>
+            </div>
+          </div>
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="cctv fire"
+            style="transition-delay: 400ms"
+          >
+            <img
+              src="https://picsum.photos/seed/hospital-sec/600/400.jpg"
+              alt="Hospital Security"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-1 block"
+                >CCTV + Fire Alarm</span
+              >
+              <h3 class="text-lg font-medium">Hospital Integrated Security</h3>
+              <p class="text-xs text-neutral-400">
+                150 cameras + full fire safety system
+              </p>
+            </div>
+          </div>
+          <div
+            class="project-card rounded-2xl overflow-hidden relative group cursor-pointer reveal-scale"
+            data-category="access guard"
+            style="transition-delay: 500ms"
+          >
+            <img
+              src="https://picsum.photos/seed/luxury-secure/600/400.jpg"
+              alt="Luxury Security"
+              class="w-full h-64 object-cover transition-transform duration-700"
+              style="filter: brightness(0.6)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span
+                class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1 block"
+                >Access + Guards</span
+              >
+              <h3 class="text-lg font-medium">Luxury Residential Complex</h3>
+              <p class="text-xs text-neutral-400">
+                Multi-layer security for 500+ apartments
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="relative z-10 px-6 py-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+          >
+            <iconify-icon
+              icon="mdi:clipboard-list"
+              class="text-indigo-400 text-sm"
+            ></iconify-icon>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >Our Process</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+            <span class="gradient-text-2">How We Work</span>
+          </h2>
+          <p class="text-neutral-400 font-light max-w-xl mx-auto">
+            A systematic approach from assessment to ongoing support.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-4 gap-8">
+          <div
+            class="process-step text-center reveal"
+            style="transition-delay: 0ms"
+          >
+            <div
+              class="w-14 h-14 rounded-2xl bg-indigo-500/15 flex items-center justify-center mx-auto mb-5 relative"
+            >
+              <iconify-icon
+                icon="mdi:magnify"
+                class="text-indigo-400 text-2xl"
+              ></iconify-icon>
+              <span
+                class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-indigo-500 text-[10px] font-semibold flex items-center justify-center"
+                >1</span
+              >
+            </div>
+            <h4 class="text-sm font-medium mb-2">Site Survey</h4>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">
+              Detailed assessment of your premises, risk evaluation, and
+              security needs analysis.
+            </p>
+          </div>
+          <div
+            class="process-step text-center reveal"
+            style="transition-delay: 150ms"
+          >
+            <div
+              class="w-14 h-14 rounded-2xl bg-purple-500/15 flex items-center justify-center mx-auto mb-5 relative"
+            >
+              <iconify-icon
+                icon="mdi:file-document-edit"
+                class="text-purple-400 text-2xl"
+              ></iconify-icon>
+              <span
+                class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-purple-500 text-[10px] font-semibold flex items-center justify-center"
+                >2</span
+              >
+            </div>
+            <h4 class="text-sm font-medium mb-2">Custom Design</h4>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">
+              Tailored security blueprint with equipment specs, placement plans,
+              and budgeting.
+            </p>
+          </div>
+          <div
+            class="process-step text-center reveal"
+            style="transition-delay: 300ms"
+          >
+            <div
+              class="w-14 h-14 rounded-2xl bg-cyan-500/15 flex items-center justify-center mx-auto mb-5 relative"
+            >
+              <iconify-icon
+                icon="mdi:wrench"
+                class="text-cyan-400 text-2xl"
+              ></iconify-icon>
+              <span
+                class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-cyan-500 text-[10px] font-semibold flex items-center justify-center"
+                >3</span
+              >
+            </div>
+            <h4 class="text-sm font-medium mb-2">Installation</h4>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">
+              Professional installation by certified technicians with minimal
+              disruption.
+            </p>
+          </div>
+          <div
+            class="process-step text-center reveal"
+            style="transition-delay: 450ms"
+          >
+            <div
+              class="w-14 h-14 rounded-2xl bg-emerald-500/15 flex items-center justify-center mx-auto mb-5 relative"
+            >
+              <iconify-icon
+                icon="mdi:shield-check"
+                class="text-emerald-400 text-2xl"
+              ></iconify-icon>
+              <span
+                class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-500 text-[10px] font-semibold flex items-center justify-center"
+                >4</span
+              >
+            </div>
+            <h4 class="text-sm font-medium mb-2">Support & Maintenance</h4>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">
+              Ongoing monitoring, preventive maintenance, and 24/7 technical
+              assistance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="relative z-10 px-6 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+          >
+            <iconify-icon
+              icon="mdi:star-circle"
+              class="text-indigo-400 text-sm"
+            ></iconify-icon>
+            <span class="text-xs font-medium text-indigo-300 tracking-wide"
+              >Client Testimonials</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+            <span class="gradient-text-2">What Our Clients Say</span>
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div
+            class="glass-panel rounded-2xl p-8 reveal"
+            style="transition-delay: 0ms"
+          >
+            <div class="flex items-center gap-1 mb-4">
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+            </div>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              "ShieldForce installed a complete CCTV system across our 3
+              warehouses. The image quality is exceptional and the remote
+              viewing app works flawlessly. Highly recommended!"
+            </p>
+            <div class="flex items-center gap-3">
+              <img
+                src="https://picsum.photos/seed/client1/80/80.jpg"
+                class="w-10 h-10 rounded-full"
+                alt=""
+              />
+              <div>
+                <p class="text-sm font-medium">Rajesh Kumar</p>
+                <p class="text-xs text-neutral-500">
+                  Operations Director, LogiTrans Pvt Ltd
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="glass-panel rounded-2xl p-8 reveal"
+            style="transition-delay: 100ms"
+          >
+            <div class="flex items-center gap-1 mb-4">
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+            </div>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              "Their fire alarm system saved lives during a minor incident. The
+              early detection and automatic notification to the fire department
+              was crucial. Excellent work!"
+            </p>
+            <div class="flex items-center gap-3">
+              <img
+                src="https://picsum.photos/seed/client2/80/80.jpg"
+                class="w-10 h-10 rounded-full"
+                alt=""
+              />
+              <div>
+                <p class="text-sm font-medium">Dr. Priya Mehta</p>
+                <p class="text-xs text-neutral-500">
+                  Administrator, City Hospital
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="glass-panel rounded-2xl p-8 reveal"
+            style="transition-delay: 200ms"
+          >
+            <div class="flex items-center gap-1 mb-4">
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+              <iconify-icon
+                icon="mdi:star-half-full"
+                class="text-amber-400 text-sm"
+              ></iconify-icon>
+            </div>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              "We've been using their security guard services for 5 years now.
+              The guards are professional, punctual, and well-trained. The
+              access control system they installed is a bonus."
+            </p>
+            <div class="flex items-center gap-3">
+              <img
+                src="https://picsum.photos/seed/client3/80/80.jpg"
+                class="w-10 h-10 rounded-full"
+                alt=""
+              />
+              <div>
+                <p class="text-sm font-medium">Amit Sharma</p>
+                <p class="text-xs text-neutral-500">CEO, TechPark Solutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="relative z-10 px-6 py-16 border-t border-b border-white/5">
+      <div class="max-w-5xl mx-auto">
+        <p
+          class="text-center text-xs text-neutral-600 uppercase tracking-widest mb-10 reveal"
+        >
+          Authorized Partner & Dealer
+        </p>
+        <div
+          class="flex flex-wrap justify-center items-center gap-10 md:gap-16 reveal-scale"
+        >
+          <div
+            class="flex items-center gap-2 text-neutral-600 hover:text-neutral-400 transition-colors duration-300"
+          >
+            <iconify-icon
+              icon="mdi:shield-half-full"
+              class="text-2xl"
+            ></iconify-icon>
+            <span class="text-sm font-medium">Hikvision</span>
+          </div>
+          <div
+            class="flex items-center gap-2 text-neutral-600 hover:text-neutral-400 transition-colors duration-300"
+          >
+            <iconify-icon
+              icon="mdi:video-wireless"
+              class="text-2xl"
+            ></iconify-icon>
+            <span class="text-sm font-medium">Dahua</span>
+          </div>
+          <div
+            class="flex items-center gap-2 text-neutral-600 hover:text-neutral-400 transition-colors duration-300"
+          >
+            <iconify-icon
+              icon="mdi:fire-extinguisher"
+              class="text-2xl"
+            ></iconify-icon>
+            <span class="text-sm font-medium">Honeywell</span>
+          </div>
+          <div
+            class="flex items-center gap-2 text-neutral-600 hover:text-neutral-400 transition-colors duration-300"
+          >
+            <iconify-icon icon="mdi:lock-smart" class="text-2xl"></iconify-icon>
+            <span class="text-sm font-medium">Bosch</span>
+          </div>
+          <div
+            class="flex items-center gap-2 text-neutral-600 hover:text-neutral-400 transition-colors duration-300"
+          >
+            <iconify-icon
+              icon="mdi:door-sliding-lock"
+              class="text-2xl"
+            ></iconify-icon>
+            <span class="text-sm font-medium">ZKTeco</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative z-10 px-6 py-24">
+      <div class="max-w-5xl mx-auto">
+        <div
+          class="glass-panel rounded-3xl p-10 md:p-16 relative overflow-hidden reveal-scale"
+        >
+          <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"
+          ></div>
+          <div class="grid lg:grid-cols-2 gap-12 relative z-10">
+            <div>
+              <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-6"
+              >
+                <iconify-icon
+                  icon="mdi:phone-in-talk"
+                  class="text-indigo-400 text-sm"
+                ></iconify-icon>
+                <span class="text-xs font-medium text-indigo-300 tracking-wide"
+                  >Get in Touch</span
+                >
+              </div>
+              <h2
+                class="text-3xl md:text-4xl font-semibold tracking-tight mb-4"
+              >
+                <span class="gradient-text-2">Request a Free</span><br />
+                <span class="gradient-text">Security Audit</span>
+              </h2>
+              <p
+                class="text-neutral-400 font-light leading-relaxed mb-10 text-sm"
+              >
+                Fill out the form and our security consultant will contact you
+                within 24 hours for a free on-site assessment.
+              </p>
+              <div class="space-y-5">
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center flex-shrink-0"
+                  >
+                    <iconify-icon
+                      icon="mdi:phone"
+                      class="text-indigo-400"
+                    ></iconify-icon>
+                  </div>
+                  <div>
+                    <p class="text-xs text-neutral-500 mb-0.5">Call Us</p>
+                    <p class="text-sm font-medium">+91 98765 43210</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center flex-shrink-0"
+                  >
+                    <iconify-icon
+                      icon="mdi:email-outline"
+                      class="text-indigo-400"
+                    ></iconify-icon>
+                  </div>
+                  <div>
+                    <p class="text-xs text-neutral-500 mb-0.5">Email</p>
+                    <p class="text-sm font-medium">info@shieldforce.com</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center flex-shrink-0"
+                  >
+                    <iconify-icon
+                      icon="mdi:map-marker-outline"
+                      class="text-indigo-400"
+                    ></iconify-icon>
+                  </div>
+                  <div>
+                    <p class="text-xs text-neutral-500 mb-0.5">Office</p>
+                    <p class="text-sm font-medium">
+                      42, Security Lane, Tech District, Mumbai 400001
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form id="contactForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      required
+                      placeholder="John"
+                      class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                      >Last Name</label
+                    >
+                    <input
+                      type="text"
+                      required
+                      placeholder="Doe"
+                      class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    required
+                    placeholder="john@company.com"
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                    >Phone</label
+                  >
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+91 XXXXX XXXXX"
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                    >Service Required</label
+                  >
+                  <select
+                    required
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-400 focus:outline-none focus:border-indigo-500/50 transition-colors appearance-none"
+                    style="
+                      background-image: url(&quot;data:image/svg+xml;utf8,<svg fill='%23737373' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>&quot;);
+                      background-repeat: no-repeat;
+                      background-position: right 12px center;
+                      background-size: 20px;
+                    "
+                  >
+                    <option value="" disabled selected>Select a service</option>
+                    <option value="cctv">CCTV Installation</option>
+                    <option value="fire">Fire Alarm System</option>
+                    <option value="pa">PA System</option>
+                    <option value="access">Access Control System</option>
+                    <option value="guard">Security Guard Services</option>
+                    <option value="multiple">Multiple Services</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="text-[11px] text-neutral-500 uppercase tracking-wider block mb-2"
+                    >Message</label
+                  >
+                  <textarea
+                    rows="3"
+                    placeholder="Tell us about your security needs..."
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-white text-black text-sm font-medium py-3.5 rounded-xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2"
+                  style="box-shadow: 0 0 35px rgba(255, 255, 255, 0.1)"
+                >
+                  <iconify-icon
+                    icon="mdi:send"
+                    class="text-base"
+                  ></iconify-icon>
+                  Submit Request
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 px-6 py-16 border-t border-white/5">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-12 mb-16">
+          <div class="md:col-span-1">
+            <a href="#hero" class="flex items-center gap-2.5 mb-5">
+              <div
+                class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center"
+              >
+                <iconify-icon
+                  icon="mdi:shield-lock"
+                  class="text-white text-lg"
+                ></iconify-icon>
+              </div>
+              <span class="font-semibold text-sm tracking-tight"
+                >ShieldForce</span
+              >
+            </a>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed mb-6">
+              Complete security solutions for a safer tomorrow. Trusted by 500+
+              businesses across India.
+            </p>
+            <div class="flex items-center gap-3">
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
+                ><iconify-icon
+                  icon="mdi:facebook"
+                  class="text-neutral-400 text-sm"
+                ></iconify-icon
+              ></a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
+                ><iconify-icon
+                  icon="mdi:instagram"
+                  class="text-neutral-400 text-sm"
+                ></iconify-icon
+              ></a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
+                ><iconify-icon
+                  icon="mdi:linkedin"
+                  class="text-neutral-400 text-sm"
+                ></iconify-icon
+              ></a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
+                ><iconify-icon
+                  icon="mdi:youtube"
+                  class="text-neutral-400 text-sm"
+                ></iconify-icon
+              ></a>
+            </div>
+          </div>
+          <div>
+            <h4
+              class="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-5"
+            >
+              Services
+            </h4>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#services"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >CCTV Installation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Fire Alarm System</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >PA System</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Access Control</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Security Guards</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-5"
+            >
+              Company
+            </h4>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#about"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#projects"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Projects</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#testimonials"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Testimonials</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-xs text-neutral-500 hover:text-white transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="text-xs font-medium uppercase tracking-wider text-neutral-400 mb-5"
+            >
+              Emergency
+            </h4>
+            <div class="glass-panel rounded-xl p-4 mb-4">
+              <p
+                class="text-[10px] text-neutral-500 uppercase tracking-wider mb-1"
+              >
+                24/7 Helpline
+              </p>
+              <p class="text-lg font-semibold gradient-text">1800-123-SAFE</p>
+            </div>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">
+              For emergency security assistance, call our 24/7 helpline anytime.
+            </p>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <p class="text-xs text-neutral-600">
+            © 2024 ShieldForce Security Pvt. Ltd. All rights reserved.
+          </p>
+          <div class="flex items-center gap-6">
+            <a
+              href="#"
+              class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+              >Privacy Policy</a
+            >
+            <a
+              href="#"
+              class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+              >Terms of Service</a
+            >
+            <a
+              href="#"
+              class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
+              >Sitemap</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast -->
+    <div
+      id="toast"
+      class="toast glass-panel rounded-xl flex items-center gap-3"
+    >
+      <div
+        class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center"
+      >
+        <iconify-icon
+          icon="mdi:check-circle"
+          class="text-emerald-400"
+        ></iconify-icon>
+      </div>
+      <div>
+        <p class="text-sm font-medium">Request Submitted!</p>
+        <p class="text-xs text-neutral-400">
+          We'll contact you within 24 hours.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Spotlight
+      document.addEventListener("mousemove", (e) => {
+        document
+          .getElementById("spotlight")
+          .style.setProperty("--x", e.clientX + "px");
+        document
+          .getElementById("spotlight")
+          .style.setProperty("--y", e.clientY + "px");
+      });
+
+      // Live Time
+      function updateTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        const s = String(now.getSeconds()).padStart(2, "0");
+        const el = document.getElementById("liveTime");
+        if (el) el.textContent = h + ":" + m + ":" + s;
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+
+      // Navbar Scroll
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("navbar");
+        if (window.scrollY > 100) {
+          nav.firstElementChild.classList.add("nav-scrolled");
+        } else {
+          nav.firstElementChild.classList.remove("nav-scrolled");
+        }
+      });
+
+      // Mobile Menu
+      const mobileToggle = document.getElementById("mobileToggle");
+      const mobileMenu = document.getElementById("mobileMenu");
+      let menuOpen = false;
+      mobileToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle("open", menuOpen);
+        mobileToggle
+          .querySelector("iconify-icon")
+          .setAttribute("icon", menuOpen ? "mdi:close" : "mdi:menu");
+      });
+      function closeMobileMenu() {
+        menuOpen = false;
+        mobileMenu.classList.remove("open");
+        mobileToggle
+          .querySelector("iconify-icon")
+          .setAttribute("icon", "mdi:menu");
+      }
+
+      // Scroll Reveal
+      function revealOnScroll() {
+        const elements = document.querySelectorAll(
+          ".reveal, .reveal-left, .reveal-right, .reveal-scale",
+        );
+        elements.forEach((el) => {
+          const top = el.getBoundingClientRect().top;
+          const trigger = window.innerHeight * 0.88;
+          if (top < trigger) el.classList.add("active");
+        });
+      }
+      window.addEventListener("scroll", revealOnScroll);
+      window.addEventListener("load", revealOnScroll);
+
+      // Counter Animation
+      let countersAnimated = false;
+      function animateCounters() {
+        if (countersAnimated) return;
+        const stats = document.querySelectorAll(".stat-number");
+        const firstStat = stats[0];
+        if (!firstStat) return;
+        const top = firstStat.getBoundingClientRect().top;
+        if (top > window.innerHeight * 0.9) return;
+        countersAnimated = true;
+        stats.forEach((stat) => {
+          const target = parseInt(stat.getAttribute("data-target"));
+          const duration = 2000;
+          const start = performance.now();
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(eased * target);
+            stat.textContent = current.toLocaleString() + "+";
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        });
+      }
+      window.addEventListener("scroll", animateCounters);
+
+      // Project Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const projectCards = document.querySelectorAll(
+        "#projectGrid .project-card",
+      );
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => {
+            b.classList.remove("active");
+            b.style.background = "transparent";
+            b.style.color = "#737373";
+            b.style.border = "none";
+          });
+          btn.classList.add("active");
+          btn.style.background = "rgba(255,255,255,0.1)";
+          btn.style.color = "#ffffff";
+          const filter = btn.getAttribute("data-filter");
+          projectCards.forEach((card) => {
+            const category = card.getAttribute("data-category");
+            if (filter === "all" || category.includes(filter)) {
+              card.style.display = "block";
+              card.style.opacity = "0";
+              card.style.transform = "scale(0.95)";
+              setTimeout(() => {
+                card.style.opacity = "1";
+                card.style.transform = "scale(1)";
+                card.style.transition = "all 0.4s ease";
+              }, 50);
+            } else {
+              card.style.opacity = "0";
+              card.style.transform = "scale(0.95)";
+              setTimeout(() => {
+                card.style.display = "none";
+              }, 400);
+            }
+          });
+        });
+      });
+      filterBtns.forEach((btn) => {
+        if (btn.classList.contains("active")) {
+          btn.style.background = "rgba(255,255,255,0.1)";
+          btn.style.color = "#ffffff";
+        } else {
+          btn.style.background = "transparent";
+          btn.style.color = "#737373";
+          btn.style.border = "none";
+        }
+      });
+
+      // Contact Form
+      document.getElementById("contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        e.target.reset();
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 4000);
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
